@@ -1,5 +1,6 @@
 class BaseController {
-    constructor() {
+    constructor(secured) {
+        if(secured){this.checkAuthentication()}
         M.AutoInit();
         this.setBackButtonView('index')
         this.model = new Model()
@@ -17,5 +18,10 @@ class BaseController {
         window.onpopstate = function() {
             navigate(view)
         }; history.pushState({}, '');
+    }
+    checkAuthentication(){
+        if(sessionStorage.getItem('token') === null){
+            window.location.replace("login.html")
+        }
     }
 }
