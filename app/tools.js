@@ -53,3 +53,9 @@ function getParameterByName(name) {
     let match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
+
+function logout(){
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("roleId")
+    window.location.replace("login.html")
+}

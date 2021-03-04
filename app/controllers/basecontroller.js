@@ -24,4 +24,15 @@ class BaseController {
             window.location.replace("login.html")
         }
     }
+    displayUnauthaurizedError() {
+        this.toast('Vous n\'avez pas les droits pour effectuer cette action. ')
+    }
+    displayChief(element){
+        if(sessionStorage.getItem("roleId") != 1){
+            element.style.display = 'none'
+        }
+    }
+    initSelect(selector){
+        M.FormSelect.init($(selector));
+    }
 }

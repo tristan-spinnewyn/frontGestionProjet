@@ -19,4 +19,12 @@ class UserApi extends BaseApiService{
             }
         }).catch(err => reject(err)))
     }
+
+    getAll(){
+        return fetchJSON(this.url,this.token)
+    }
+
+    getById(id){
+        return fetchJSON(`${this.url}/${id}`,this.token)
+    }
 }

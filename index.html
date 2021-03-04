@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exemples JS</title>
+    <title>Gestion de projet</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -10,12 +10,37 @@
     <link rel="stylesheet" type="text/css" href="res/css/index.css"/>
 </head>
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="javascript:void(0);" onclick="navigate('index')" class="brand-logo" id="titleSite"></a>
+            <a href="javascript:void(0);" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li class="active" id="enCours"><a href="javascript:void(0);" onclick="navigate('index')">Projets</a></li>
+                <li id="logout"><a href="javascript:void(0)" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <ul class="sidenav" id="mobile-demo">
+        <li id="enCoursMobile"><a href="javascript:void(0);"  onclick="navigate('index')">Projets</a></li>
+        <li id="logoutMobile"><a href="javascript:void(0)" onclick="logout()">Logout</a></li>
+    </ul>
     <div id="content"></div>
 
     <script type="application/ecmascript" src="app/tools.js"></script>
+    <!-- Model -->
     <script type="application/ecmascript" src="app/model/classes.js"></script>
     <script type="application/ecmascript" src="app/model/model.js"></script>
+    <script type="application/ecmascript" src="app/model/projetmodel.js"></script>
+    <script type="application/ecmascript" src="app/model/usermodel.js"></script>
+
+    <!-- API -->
+    <script type="application/ecmascript" src="app/services/baseapiservice.js"></script>
+    <script type="application/ecmascript" src="app/services/userapi.js"></script>
+    <script type="application/ecmascript" src="app/services/projetapi.js"></script>
+    <!-- Controller de base-->
     <script type="application/ecmascript" src="app/controllers/basecontroller.js"></script>
+    <script type="application/ecmascript" src="app/controllers/baseformcontroller.js"></script>
     <script>navigate("index")</script>
 </body>
 </html>

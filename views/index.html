@@ -1,4 +1,44 @@
 <div class="container">
-    <h3>Vue "Index"</h3>
+    <h3>Liste des projets</h3>
+    <div>
+        <a id="buttonAddProject" class="waves-effect waves-light btn" onclick="indexController.openModalAjout()"><i class="material-icons right">add</i>Ajouter</a>
+        <div>
+            <table id="tableListProject" class="striped">
+                <thead>
+                    <th>Nom du projet</th>
+                    <th>Utilisateur assigné</th>
+                    <th>Action</th>
+                </thead>
+                <tbody id="contentTableListProject"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modalAddProject" class="modal">
+    <div class="modal-content">
+      <h4 id="titleAdd">Ajout d'un projet</h4>
+      <div class="row">
+          <div class="col s12">
+            <form id="formAddProject">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="nom du projet" id="project_name_field" type="text" class="validate">
+                        <label for="project_name_field">Nom du projet</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select id="lstUser">
+                        </select>
+                        <label>Chargé du projet</label>
+                      </div>
+                </div>
+            </form>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-light btn" id="buttonAdd" onclick="indexController.addProject()">Ajouter</a>
+    </div>
 </div>
 
