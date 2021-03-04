@@ -11,6 +11,14 @@ class ProjetModel{
         return this.api.update(projet)
     }
 
+    async getAllExigence(id){
+        let exigences = []
+        for(let exigence of await this.api.getAllExigence(id)){
+            exigences.push(Object.assign(new Exigence(),exigence))
+        }
+        return exigences
+    }
+    
     async getAll(){
         let projets = []
         for(let projet of await this.api.getAll()){

@@ -1,0 +1,58 @@
+<div class="container">
+    <h3 id="titleProject"></h3>
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab" onclick="projetController.initExigence()"><a class="active" href="#exigence">Exigence</a></li>
+        <li class="tab"><a href="#jalon">Jalons</a></li>
+      </ul>
+      <!-- Exigence du projet-->
+      <div id="exigence" class="col s12">
+        <a class="waves-effect waves-light btn" onclick="projetController.exigenceController.openModalAjout()"><i class="material-icons right">add</i>Ajouter une exigence</a>
+        <div>
+            <table id="tableListExigence" class="striped">
+                <thead>
+                    <th>Exigence</th>
+                    <th>Fonctionnel</th>
+                    <th></th>
+                </thead>
+                <tbody id="contentTableListExigence"></tbody>
+            </table>
+        </div>
+      </div>
+      <!-- Jalon du projet -->
+      <div id="jalon" class="col s12">
+        <a class="waves-effect waves-light btn" onclick=""><i class="material-icons right">add</i>Ajouter un jalon</a>
+      </div>
+</div>
+
+<!-- Modal Structure Exigence-->
+<div id="modalAddExigence" class="modal">
+    <div class="modal-content">
+      <h4 id="titleAddExigence">Ajout d'une exigence</h4>
+      <div class="row">
+          <div class="col s12">
+            <form id="formAddExigence">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="desc_exigence_field" type="text" class="validate"></textarea>
+                        <label for="desc_exigence_field">Descripton de l'exigence</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label>
+                            <input id="checkIsFonctionnel" type="checkbox" onchange="projetController.exigenceController.verifIsFonctionnel(this)" />
+                            <span>Exigence non fonctionnel</span>
+                          </label>
+                    </div>
+                    <div class="input-field col s6" id="isntFonctionnel" style="display:none">
+                        <select id="lstTypeExigence">
+                        </select>
+                        <label>Type de l'exigence</label>
+                      </div>
+                </div>
+            </form>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-light btn" id="buttonAddExigence" onclick="projetController.exigenceController.addExigence()">Ajouter</a>
+    </div>
+</div>

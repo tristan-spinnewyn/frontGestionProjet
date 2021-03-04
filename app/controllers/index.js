@@ -37,9 +37,10 @@ class IndexController extends BaseFormController {
                     userName = user.trigramme
                 }
                 
-                content += `<tr><td><a onclick="indexController.openModalUpdate(${projet.id})">${projet.nameProject}</a></td><td>${userName}</td><td><a>Voir le projet</a></td></tr>`
+                content += `<tr><td><a onclick="indexController.seeProject(${projet.id})">${projet.nameProject}</a></td><td>${userName}</td><td><a id="buttonUpdateProject" onclick="indexController.openModalUpdate(${projet.id})">Modifier</a></td></tr>`
             }
             $("#contentTableListProject").innerHTML = content
+            this.displayChief($("#buttonUpdateProject"))
         }catch(err){
             console.log(err)
             this.displayServiceError()
@@ -96,6 +97,25 @@ class IndexController extends BaseFormController {
                 }
                 this.displayServiceError()
             }
+        }
+    }
+
+    async seeProject(id){
+        try {
+            const object = await this.projetModel.getProject(id)
+            if (object === undefined) {
+                this.displayServiceError()
+                return
+            }
+            if (object === null) {
+                this.displayNotFoundError()
+                return
+            }
+            this.selectedProjet = object
+            navigate("projet")
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
         }
     }
 }

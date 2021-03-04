@@ -1,26 +1,18 @@
-class ProjetApi extends BaseApiService{
+class ExigenceApi extends BaseApiService{
     constructor(){
-        super("project")
-    }
-
-    getAll(){
-        return fetchJSON(this.url,this.token)
+        super("exigence")
     }
 
     getById(id){
         return fetchJSON(`${this.url}/${id}`,this.token)
     }
 
-    getAllExigence(id){
-        return fetchJSON(`${this.url}/${id}/exigence`,this.token)
-    }
-
-    insert(projet){
+    insert(exigence){
         this.headers.set('Content-Type','application/json')
         return new Promise((resolve,reject) => fetch(this.url,{
             method:'POST',
             headers:this.headers,
-            body:JSON.stringify(projet)
+            body:JSON.stringify(exigence)
         }).then(res=>{
             if(res.status === 200){
                 resolve(res.json())
@@ -30,12 +22,12 @@ class ProjetApi extends BaseApiService{
         }).catch(err=>reject(err)))
     }
 
-    update(projet){
+    update(exigence){
         this.headers.set('Content-Type','application/json')
         return new Promise((resolve,reject) => fetch(this.url,{
             method:'PUT',
             headers:this.headers,
-            body:JSON.stringify(projet)
+            body:JSON.stringify(exigence)
         }).then(res=>{
             if(res.status === 200){
                 resolve(res.json())
