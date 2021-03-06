@@ -20,4 +20,8 @@ class JalonModel{
             return undefined
         }
     }
+
+    async livraison(jalon){
+        return this.api.livraison(jalon)
+    }
 }

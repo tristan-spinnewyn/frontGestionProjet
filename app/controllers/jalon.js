@@ -74,4 +74,25 @@ class JalonController extends BaseFormController{
             this.displayServiceError()
         }
     }
+
+    async livraisonJalon(id){
+        this.jalon = await this.jalonModel.getById(id)
+        if(confirm("Ce jalon sera marqué comme livré, êtes vous sur ?")){
+            try{
+                let msg = await this.jalonModel.livraison(this.jalon)
+                if(msg.message == "Livraison effectué"){
+                    this.toast(msg.message)
+                }else{
+                    this.toast("une erreur est survenue")
+                }
+                projetController.initJalon()
+            }catch(err){
+                console.log(err)
+                if(err === 401){
+                    this.displayUnauthaurizedError()
+                }
+                this.displayServiceError
+            }
+        }
+    }
 }

@@ -42,10 +42,13 @@ class ProjetController extends BaseFormController {
                 let user = await this.userModel.getById(jalon.userId)
                 let dateLivPrev = new Date(jalon.dateLivPrev)
                 let dateLivReel;
+                let show;
                 if(jalon.dateLivReel != null){
                     dateLivReel = new Date(jalon.dateLivReel).toLocaleDateString('fr-FR')
+                    show = "none"
                 }else{
                     dateLivReel = "Non livré"
+                    show="block"
                 }
                 content += `<tr>
                 <td><a>${jalon.jalonName}</a></td>
@@ -55,7 +58,7 @@ class ProjetController extends BaseFormController {
                 <td>${jalon.pourcentageFinish}</td>
                 <td>
                     <a class="waves-effect waves-light btn" onclick="projetController.jalonController.openModalUpdate(${jalon.id})">Modifier</a>
-                    <a class="waves-effect waves-light btn">marqué comme livré</a>
+                    <a class="waves-effect waves-light btn" style="display:${show}" onclick="projetController.jalonController.livraisonJalon(${jalon.id})">marqué comme livré</a>
                 </td></tr>`
             }
             $("#contentTableListJalon").innerHTML = content
