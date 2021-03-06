@@ -1,6 +1,6 @@
 class JalonController extends BaseFormController{
     constructor(){
-        super(false)
+        super(true)
         this.jalonModel = new JalonModel()
         this.userModel = new UserModel()
         this.jalon = null;
