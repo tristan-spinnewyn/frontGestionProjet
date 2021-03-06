@@ -38,12 +38,13 @@ class RoleUser{
 }
 
 class Jalon{
-    constructor(dateLivPrev,dateLivReel,jalonName,projectId,userId){
+    constructor(dateLivPrev,dateLivReel,jalonName,projectId,userId,pourcentageFinish){
         this.dateLivPrev = dateLivPrev
         this.dateLivReel = dateLivReel
         this.jalonName = jalonName
         this.projectId = projectId
         this.userId = userId
+        this.pourcentageFinish = pourcentageFinish
     }
 }
 

@@ -7,7 +7,7 @@ class ExigenceModel{
         return this.api.insert(exigence)
     }
 
-    update(exigence,id){
+    update(exigence){
         return this.api.update(exigence)
     }
 

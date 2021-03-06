@@ -2,7 +2,7 @@
     <h3 id="titleProject"></h3>
     <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
         <li class="tab" onclick="projetController.initExigence()"><a class="active" href="#exigence">Exigence</a></li>
-        <li class="tab"><a href="#jalon">Jalons</a></li>
+        <li class="tab" onclick="projetController.initJalon()"><a href="#jalon">Jalons</a></li>
       </ul>
       <!-- Exigence du projet-->
       <div id="exigence" class="col s12">
@@ -20,7 +20,20 @@
       </div>
       <!-- Jalon du projet -->
       <div id="jalon" class="col s12">
-        <a class="waves-effect waves-light btn" onclick=""><i class="material-icons right">add</i>Ajouter un jalon</a>
+        <a class="waves-effect waves-light btn"  onclick="projetController.jalonController.openModalAjout()"><i class="material-icons right">add</i>Ajouter un jalon</a>
+        <div>
+          <table id="tableListJalon" class="striped">
+              <thead>
+                <th>Nom</th>
+                <th>Date de livraison prévu</th>
+                <th>Date de livraison réel</th>
+                <th>Utilisateur assigné</th>
+                <th>Poucentage d'avancement</th>
+                <th></th>
+              </thead>
+              <tbody id="contentTableListJalon"></tbody>
+          </table>
+      </div>
       </div>
 </div>
 
@@ -55,4 +68,31 @@
     <div class="modal-footer">
       <a class="waves-effect waves-light btn" id="buttonAddExigence" onclick="projetController.exigenceController.addExigence()">Ajouter</a>
     </div>
+</div>
+
+<!-- Modal Structure Jalon-->
+<div id="modalAddJalon" class="modal">
+  <div class="modal-content">
+    <h4 id="titleAddJalon">Ajout d'un jalon</h4>
+    <div class="row">
+        <div class="col s12">
+          <form id="formAddJalon">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="jalon_name_field" type="text" class="validate">
+                  <label for="jalon_name_field">Nom du jalon</label>
+                </div>
+                <div class="input-field col s6">
+                  <select id="lstUserJalon">
+                  </select>
+                  <label>Chargé du projet</label>
+                </div>
+              </div>
+          </form>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-light btn" id="buttonAddJalon" onclick="projetController.jalonController.addJalon()" >Ajouter</a>
+  </div>
 </div>

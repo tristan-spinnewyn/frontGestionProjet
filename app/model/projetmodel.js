@@ -18,6 +18,14 @@ class ProjetModel{
         }
         return exigences
     }
+
+    async getAllJalon(id){
+        let jalons = []
+        for(let jalon of await this.api.getAllJalon(id)){
+            jalons.push(Object.assign(new Jalon(),jalon))
+        }
+        return jalons
+    }
     
     async getAll(){
         let projets = []
