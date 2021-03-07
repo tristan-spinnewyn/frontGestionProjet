@@ -28,4 +28,12 @@ class TaskModel{
     end(task){
         return this.api.end(task)
     }
+
+    async getExigence(id){
+        let exigences = []
+        for(let exigence of await this.api.getExigence(id)){
+            exigences.push(Object.assign(new TaskExigence(),exigence))
+        }
+        return exigences
+    }
 }

@@ -74,12 +74,25 @@
             </form>
           </div>
       </div>
-      <div class="row" id="lstExig">
+      <div class="row" id="lstExigContent">
+          <div class="row">
+            <div class="input-field col s6">
+                <select id="lstExig">
+                </select>
+                <label for="lstExig">Exigence</label>
+            </div>
+            <div class="input-field col s6">
+                <a class="waves-effect waves-light btn" onclick="frontJalon.taskController.addExigence()">Ajouter une exigence</a>
+            </div>
+          </div>
             <table id="tableLstExig">
                 <thead>
-                    <th>Nom de la tache</th>
+                    <th>Exigence</th>
                     <th></th>
                 </thead>
+                <tbody id="tableLstExigContent">
+
+                </tbody>
             </table>
       </div>
     </div>

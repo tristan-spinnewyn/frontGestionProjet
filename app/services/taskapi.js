@@ -81,4 +81,8 @@ class TaskApi extends BaseApiService{
             }
         }).catch(err=>reject(err)))
     }
+
+    getExigence(id){
+        return fetchJSON(`${this.url}/${id}/exigence`,this.token)
+    }
 }

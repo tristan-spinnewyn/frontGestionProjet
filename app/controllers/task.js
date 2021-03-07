@@ -3,13 +3,18 @@ class TaskController extends BaseFormController{
         super(true)
         this.userModel = new UserModel()
         this.taskModel = new TaskModel()
+        this.exigenceModel = new ExigenceModel()
+        this.projetModel = new ProjetModel()
+        this.taskExigenceModel = new TaskExigenceModel()
         this.task = null;
     }
 
     async openModalAjout(){
         this.task = null;
+        $("#lstExigContent").style.display = "none"
         $("#buttonAddTask").innerHTML = "Ajouter"
         $("#titleAddTask").innerHTML = "Ajouter une tache"
+        $("#isDepend").style.display = "none"
         $("#formAddTask").reset()
         await this.getUsers()
         await this.getTask()
@@ -18,6 +23,9 @@ class TaskController extends BaseFormController{
 
     async openModalUpdate(id){
         await this.openModalAjout()
+        await this.initExigence()
+        await this.getExigencesLst(id)
+        $("#lstExigContent").style.display = "block"
         this.task = await this.taskModel.getById(id)
         $("#buttonAddTask").innerHTML = "Modifier"
         $("#titleAddTask").innerHTML = "Modification de la tache"
@@ -32,12 +40,45 @@ class TaskController extends BaseFormController{
         $("#nbDays").value = this.task.nbDays
         $("#desc_task_field").value = this.task.descTask
         $("#task-"+this.task.id).remove()
-        console.log(this.task.taskIdDepend)
         if(this.task.taskIdDepend != null){
             $("#checkDepend").checked = true
             $("#lstTask").value = this.task.taskIdDepend
+            $("#isDepend").style.display = "block"
         }
         M.FormSelect.init($("#lstTask"));
+
+    }
+
+    async getExigencesLst(id){
+        let content = ""
+        try{
+            for(const exigenceTask of await this.taskModel.getExigence(id)){
+                let exigence = await this.exigenceModel.getById(exigenceTask.exigenceId)
+                if($("#exigence-"+exigence.id)){
+                    $("#exigence-"+exigence.id).remove()
+                }
+                content += `<tr><td>${exigence.descExigence}</td><td><a class="waves-effect waves-light btn" onclick="frontJalon.taskController.deleteExigence(${exigence.id})">Supprimer</a></td></td>`
+            }
+            $("#tableLstExigContent").innerHTML = content
+            M.FormSelect.init($("#lstExig"));
+        }catch(err){
+            console.log(err)
+            this.displayServiceError()
+        }
+    }
+
+    async initExigence(){
+        let content = "<option value='' disabled selected>Sélectionner l'exigence</option>"
+        try{
+            for(const exigence of await this.projetModel.getAllExigence(projetController.projet.id)){
+                content += `<option id="exigence-${exigence.id}" value="${exigence.id}">${exigence.descExigence}</option>`
+            }
+            $("#lstExig").innerHTML = content
+            M.FormSelect.init($("#lstExig"));
+        }catch(err){
+            console.log(err)
+            this.displayServiceError()
+        }
     }
 
     async getUsers(){
@@ -97,7 +138,7 @@ class TaskController extends BaseFormController{
                     this.task.descTask = descTask
                     let msg = await this.taskModel.update(this.task)
                     if(msg.message == "Modification effectué"){
-                        this.toast("Le jalon a été modifié")
+                        this.toast("La tache a été modifié")
                         result = true
                     }
                 }
@@ -165,6 +206,35 @@ class TaskController extends BaseFormController{
                     this.displayServiceError()
                 }
                 
+            }
+        }
+    }
+
+    async addExigence(){
+        if($("#lstExig").value != null)
+        {
+            let msg = await this.taskExigenceModel.insert(new TaskExigence(this.task.id,$("#lstExig").value))
+            if(msg.message == "Insertion effectué"){
+                this.toast("L'exigence a été ajouté a la tache")
+                this.getExigencesLst(this.task.id)
+            }else{
+                this.toast("Une erreur est survenu")
+            }
+        }else{
+            this.toast("Veuillez sélectionner une exigence")
+        }
+        
+    }
+
+    async deleteExigence(id){
+        if(confirm("Voulez vous vraiment supprimer cette exigence ?")){
+            let msg = await this.taskExigenceModel.delete(new TaskExigence(this.task.id,id))
+            if(msg.message == "Suppression effectué"){
+                this.toast("L'exigence a été supprimé de la tache")
+                this.initExigence()
+                this.getExigencesLst(this.task.id)
+            }else{
+                this.toast("Une erreur est survenu")
             }
         }
     }
