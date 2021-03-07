@@ -24,4 +24,12 @@ class JalonModel{
     async livraison(jalon){
         return this.api.livraison(jalon)
     }
+
+    async getAllTask(id){
+        let tasks = []
+        for(let task of await this.api.getAllTask(id)){
+            tasks.push(Object.assign(new Task(),task))
+        }
+        return tasks
+    }
 }

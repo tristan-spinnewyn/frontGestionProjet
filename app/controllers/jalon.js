@@ -3,6 +3,7 @@ class JalonController extends BaseFormController{
         super(true)
         this.jalonModel = new JalonModel()
         this.userModel = new UserModel()
+        this.taskModel = new TaskModel()
         this.jalon = null;
     }
 

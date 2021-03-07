@@ -3,6 +3,7 @@ class ProjetController extends BaseFormController {
         super(true)
         this.projetModel = new ProjetModel()
         this.userModel = new UserModel()
+        this.jalonModel = new JalonModel()
         this.typeExigenceModel = new TypeExigenceModel()
         this.exigenceController = new ExigenceController()
         this.jalonController = new JalonController()
@@ -10,6 +11,7 @@ class ProjetController extends BaseFormController {
             this.projet = indexController.selectedProjet
             indexController.selectedProjet = null
         }
+        this.selectedJalon = null;
         $("#titleProject").innerHTML = this.projet.nameProject
         this.initExigence()
     }
@@ -38,7 +40,6 @@ class ProjetController extends BaseFormController {
         let content = ""
         try{
             for(const jalon of await this.projetModel.getAllJalon(this.projet.id)){
-                console.log(jalon)
                 let user = await this.userModel.getById(jalon.userId)
                 let dateLivPrev = new Date(jalon.dateLivPrev)
                 let dateLivReel;
@@ -51,7 +52,7 @@ class ProjetController extends BaseFormController {
                     show="block"
                 }
                 content += `<tr>
-                <td><a>${jalon.jalonName}</a></td>
+                <td><a onclick="projetController.seeJalon(${jalon.id})">${jalon.jalonName}</a></td>
                 <td>${dateLivPrev.toLocaleDateString('fr-FR')}</td>
                 <td>${dateLivReel}</td>
                 <td>${user.trigramme}</td>
@@ -63,6 +64,25 @@ class ProjetController extends BaseFormController {
             }
             $("#contentTableListJalon").innerHTML = content
         }catch(err){
+            console.log(err)
+            this.displayServiceError()
+        }
+    }
+
+    async seeJalon(id){
+        try {
+            const object = await this.jalonModel.getById(id)
+            if (object === undefined) {
+                this.displayServiceError()
+                return
+            }
+            if (object === null) {
+                this.displayNotFoundError()
+                return
+            }
+            this.selectedJalon = object
+            navigate("frontjalon")
+        } catch (err) {
             console.log(err)
             this.displayServiceError()
         }
