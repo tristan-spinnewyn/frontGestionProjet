@@ -36,4 +36,49 @@ class TaskApi extends BaseApiService{
             }
         }).catch(err=>reject(err)))
     }
+
+    start(task){
+        this.headers.set('Content-Type','application/json')
+        return new Promise((resolve,reject) => fetch(`${this.url}/start`,{
+            method:'PUT',
+            headers:this.headers,
+            body:JSON.stringify(task)
+        }).then(res=>{
+            if(res.status === 200){
+                resolve(res.json())
+            }else{
+                reject(res.status)
+            }
+        }).catch(err=>reject(err)))
+    }
+
+    start(task){
+        this.headers.set('Content-Type','application/json')
+        return new Promise((resolve,reject) => fetch(`${this.url}/start`,{
+            method:'PUT',
+            headers:this.headers,
+            body:JSON.stringify(task)
+        }).then(res=>{
+            if(res.status === 200){
+                resolve(res.json())
+            }else{
+                reject(res.status)
+            }
+        }).catch(err=>reject(err)))
+    }
+
+    end(task){
+        this.headers.set('Content-Type','application/json')
+        return new Promise((resolve,reject) => fetch(`${this.url}/end`,{
+            method:'PUT',
+            headers:this.headers,
+            body:JSON.stringify(task)
+        }).then(res=>{
+            if(res.status === 200){
+                resolve(res.json())
+            }else{
+                reject(res.status)
+            }
+        }).catch(err=>reject(err)))
+    }
 }

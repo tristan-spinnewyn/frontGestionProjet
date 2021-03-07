@@ -124,4 +124,48 @@ class TaskController extends BaseFormController{
             $("#isDepend").style.display = "none"
         }
     }
+
+    async endTask(id){
+        this.task = await this.taskModel.getById(id)
+        if(confirm("Cette tache sera marqué comme fini, êtes vous sur ?")){
+            try{
+                let msg = await this.taskModel.end(this.task)
+                if(msg.message == "Tache fini"){
+                    this.toast(msg.message)
+                }else{
+                    this.toast("une erreur est survenue")
+                }
+                frontJalon.initTask()
+            }catch(err){
+                console.log(err)
+                if(err === 401){
+                    this.toast("Veuillez vérifier que la tâche a bien une date de démarrage")
+                }else{
+                    this.displayServiceError()
+                }
+                
+            }
+        }
+    }
+
+    async startTask(id){
+        this.task = await this.taskModel.getById(id)
+        if(confirm("Cette tache va commencer, êtes vous sur ?")){
+            try{
+                let msg = await this.taskModel.start(this.task)
+                if(msg.message == "Tache commencé"){
+                    this.toast(msg.message)
+                }
+                frontJalon.initTask()
+            }catch(err){
+                console.log(err)
+                if(err === 401){
+                    this.toast("Veuillez vérifier que la tâche précédente est bien terminé")
+                }else{
+                    this.displayServiceError()
+                }
+                
+            }
+        }
+    }
 }

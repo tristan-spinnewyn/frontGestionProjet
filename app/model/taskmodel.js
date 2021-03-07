@@ -20,4 +20,12 @@ class TaskModel{
             return undefined
         }
     }
+
+    start(task){
+        return this.api.start(task)
+    }
+
+    end(task){
+        return this.api.end(task)
+    }
 }

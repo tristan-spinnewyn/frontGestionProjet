@@ -28,16 +28,16 @@ class FrontJalonController extends BaseFormController{
                 let dateLivReel;
                 let showStart;
                 let showEnd;
-                if(task.DateStartTaskReal != null){
-                    dateLivReel = new Date(task.DateStartTaskReal).toLocaleDateString('fr-FR')
+                if(task.dateStartTaskReal != null){
+                    dateLivReel = new Date(task.dateStartTaskReal).toLocaleDateString('fr-FR')
                     showStart = "none"
                     start = "50%"
                 }else{
                     dateLivReel = "Non commencé"
                     showStart="block"
                 }
-                if(task.DateEndTask != null){
-                    DateEndTask = new Date(task.DateEndTask).toLocaleDateString('fr-FR')
+                if(task.dateEndTask != null){
+                    DateEndTask = new Date(task.dateEndTask).toLocaleDateString('fr-FR')
                     showEnd = "none"
                     start = "100%"
                 }else{
@@ -54,8 +54,8 @@ class FrontJalonController extends BaseFormController{
                 <td>${start}</td>
                 <td>
                     <a class="waves-effect waves-light btn" onclick="frontJalon.taskController.openModalUpdate(${task.id})">Modifier</a>
-                    <a class="waves-effect waves-light btn" style="display:${showStart}" onclick="">Commencé</a>
-                    <a class="waves-effect waves-light btn" style="display:${showEnd}" onclick="">Terminé</a>
+                    <a class="waves-effect waves-light btn" onclick="frontJalon.taskController.startTask(${task.id})" style="display:${showStart}" onclick="">Commencé</a>
+                    <a class="waves-effect waves-light btn" onclick="frontJalon.taskController.endTask(${task.id})" style="display:${showEnd}" onclick="">Terminé</a>
                 </td>`
             }
             $("#contentTableListTask").innerHTML = content
